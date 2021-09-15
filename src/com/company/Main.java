@@ -7,49 +7,127 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+        System.out.println("Welcome to the Enigma program");
 
+        mainMenu();
 
+        System.out.println("Thanks for using Mark Enigma program");
+    }
 
-        boolean toDecode;
+    public static void mainMenu(){
+        while(true){
+            int choice = intro();
+            if (choice==1){
+                numberCypher();
+            }
+            else if (choice==2){
+                caesarCipher();;
+            }
+            else if (choice==3){
+                vigCipher();
+            }
+            else if (choice == 4){
+                break;
+            }
+            else {
+                System.out.println("invalid input. Try again");
+            }
+        }
+
+    }
+    public static int intro(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Which Cipher do you want to use");
+        System.out.println("Press 1 for number cipher");
+        System.out.println("Press 2 for Caesar cipher");
+        System.out.println("Press 3 for Vigenère Cipher");
+        System.out.println("Press 4 to exit");
+        int choice = scanner.nextInt();
+        return choice;
+
+    }
+    public static void numberCypher(){
+        int menuChoice;
         boolean keepGoing = true;
         while(keepGoing == true){
-        toDecode = intro();
+            menuChoice = subMenu();
 
-        if(toDecode == true){
-           ifDecode();
+            if(menuChoice == 1){
+                numEncrypt();
+                keepGoing = keepGoing();
+            }
+            else if (menuChoice == 2){
+                numDecrypt();
+                keepGoing = keepGoing();
+            }
+            else if (menuChoice == 0){
+                keepGoing = false;
+            }
         }
-        else if (toDecode == false){
-            ifEncode();
-        }
-        keepGoing = keepGoing();
-
-
-
     }
-        System.out.println("Thanks for using Enigma encoder");
-    }
-
-    public static boolean intro(){
-        System.out.println("Welcome do you want to encode or decode (d/e)");
+    public static void caesarCipher(){
+        int menuChoice;
         boolean keepGoing = true;
-        boolean toDecode = false;
+        while(keepGoing == true){
+            menuChoice = subMenu();
+
+            if(menuChoice == 1){
+                caeEncrypt();
+                keepGoing = keepGoing();
+            }
+            else if (menuChoice == 2){
+                caeDecrypt();
+                keepGoing = keepGoing();
+            }
+            else if (menuChoice == 0){
+                keepGoing = false;
+            }
+        }
+    }
+    public static void vigCipher(){
+        int menuChoice;
+        boolean keepGoing = true;
+        while(keepGoing == true){
+            menuChoice = subMenu();
+
+            if(menuChoice == 1){
+                vigEncrypt();
+                keepGoing = keepGoing();
+            }
+            else if (menuChoice == 2){
+                vigDecrypt();
+                keepGoing = keepGoing();
+            }
+            else if (menuChoice == 0){
+                keepGoing = false;
+            }
+        }
+    }
+
+
+    public static int subMenu(){
+        System.out.println("Do you want to encode or decode (d/e) or return to main menu (m)");
+        boolean keepGoing = true;
+        int menuChoice = 0;
         Scanner scanner = new Scanner(System.in);
         while (keepGoing == true){
-        String choice = scanner.nextLine();
-        if (choice.equals("e")) {
-            toDecode = false;
-            keepGoing = false;
+            String choice = scanner.nextLine();
+            if (choice.equals("e")) {
+                menuChoice = 1;
+                keepGoing = false;
+            }
+            else if (choice.equals("d")){
+                menuChoice = 2;
+                keepGoing = false;
+            }
+            else if(choice.equals("m")){
+                keepGoing = false;
+            }
+            else{
+                System.out.println("invalid input");}
         }
-        else if (choice.equals("d")){
-            toDecode = true;
-            keepGoing = false;
-        }
-        else{
-            System.out.println("invalid input");}
-        }
-        return toDecode;
+        return menuChoice;
     }
-
 
     public static boolean keepGoing(){
         Scanner scanner = new Scanner(System.in);
@@ -74,23 +152,149 @@ public class Main {
         return keepGoing;
     }
 
-    public static void ifDecode(){
+
+    public static void vigEncrypt(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Give list of number in format 2, 5, 6, 8");
+        System.out.println("Enter a text to encrypt");
+        String text = scanner.nextLine();
+        System.out.println("Enter code pharse");
+        String code = scanner.nextLine();
+        int numCode[] = new int[code.length()];
+        numCode = stringtoNumArray(code);
+        int textArray[] = new int [text.length()];
+        textArray = stringtoNumArray(text);
+        text = "";
+        for(int i = 0; i < textArray.length;i++){
+            for(int j = 0; j <numCode.length && i < textArray.length;j++){
+                text = text + vigNumToLetter(textArray[i],numCode[j],false);
+                i++;
+        }
+        i = i - 1;
+        }
+        System.out.println(text);
+    }
+    public static void vigDecrypt(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter a text to encrypt");
+        String text = scanner.nextLine();
+        System.out.println("Enter code pharse");
+        String code = scanner.nextLine();
+        int numCode[] = new int[code.length()];
+        numCode = stringtoNumArray(code);
+        int textArray[] = new int [text.length()];
+        textArray = stringtoNumArray(text);
+        text = "";
+        for(int i = 0; i < textArray.length;i++){
+            for(int j = 0; j <numCode.length && i < textArray.length;j++){
+                text = text + vigNumToLetter(textArray[i],numCode[j],true);
+                i++;
+            }
+            i = i - 1;
+        }
+        System.out.println(text);
+    }
+
+    public static void caeDecrypt(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter encrypted message");
+        String input = scanner.nextLine();
+        System.out.println("Enter the shift that the message was encrypted with");
+        int shift = scanner.nextInt();
+        input = caeNumToLetter(stringtoNumArray(input),shift,false);
+        System.out.println(input);
+    }
+
+    public static void caeEncrypt(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter a text to encode");
+        String input = scanner.nextLine();
+        System.out.println("Enter a shift");
+        int shift = scanner.nextInt();
+        int numArray[] = new int[input.length()];
+        numArray = stringtoNumArray(input);
+        input = caeNumToLetter(stringtoNumArray(input),shift,true);
+        System.out.println(input);
+    }
+
+    public static void numDecrypt(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Give list of number in format {2, 5, 6, 8}");
         String input = scanner.nextLine();
         input = numToLetter(numStringToArray(input));
         System.out.println(input);
     }
 
-    public static void ifEncode(){
+    public static void numEncrypt(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter a text to endcode");
         String input = scanner.nextLine();
         int numArray[] = new int[input.length()];
         numArray = stringtoNumArray(input);
-        System.out.println(Arrays.toString(numArray));
+        System.out.println(arrayToString(numArray));
+    }
+
+    public static String caeNumToLetter(int[] array, int shift , boolean toEncode){
+        if(toEncode == false){
+            shift = -shift;
+        }
+        String alfabet = " ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ";
+        String text = "";
+        int index = 0;
+        for (int i = 0 ; i < array.length; i++){
+            if (array[i]+shift < 30 && array[i]+shift >= 0){
+            text = text + alfabet.substring(array[i]+shift,array[i]+1+shift);
+        }
+            else if (array[i]+shift >= 30){
+                index = array[i]+shift-30;
+                text = text + alfabet.substring(index,index+1);
+            }
+            else{
+                index = array[i]+shift+30;
+                text = text + alfabet.substring(index,index+1);
+            }
+        }
+        return text;
+    }
+
+    public static String vigNumToLetter(int num, int shift , boolean toEncode){
+        if(toEncode == false){
+            shift = -shift;
+        }
+        String alfabet = " ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ";
+        String text = "";
+        int index = 0;
+            if (num+shift < 30 && num+shift >= 0){
+                text = text + alfabet.substring(num+shift,num+1+shift);
+            }
+            else if (num+shift >= 30){
+                index = num+shift-30;
+                text = text + alfabet.substring(index,index+1);
+            }
+            else{
+                index = num+shift+30;
+                text = text + alfabet.substring(index,index+1);
+            }
+        return text;
+    }
 
 
+
+
+
+
+
+
+
+
+
+
+    public static String arrayToString(int[] input){
+        String text ="{";
+        for(int i = 0; i < input.length; i++){
+            text = text + Integer.toString(input[i]) + ", ";
+        }
+        text = text.substring(0,text.length()-2) + "}";
+    return text;
     }
 
 
@@ -126,6 +330,8 @@ public class Main {
     /// takes String in form "1, 5, 6, 4, 3" and returns it as array
     public static int[] numStringToArray (String inputString){
         //finder antal af tal og laver array
+        inputString = inputString.substring(1,inputString.length());
+        inputString = inputString.substring(0,inputString.length()-1);
         int numAmount = findNumAmount(inputString);
         int nums[] = new int[numAmount];
 
@@ -168,7 +374,6 @@ public class Main {
 
     public static int findComma(String input, int lastComma){
         int index;
-
         if(lastComma == 0){
            index = input.indexOf(",");
         }
@@ -177,6 +382,8 @@ public class Main {
         }
         return index;
     }
+
+
     public static int findNumAmount(String input){
         int sum = 0;
         int index = 0;
@@ -186,9 +393,5 @@ public class Main {
         }
         return sum;
     }
-
-
-
-
 }
 
