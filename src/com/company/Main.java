@@ -16,7 +16,7 @@ public class Main {
         while(true){
             int choice = intro();
             if (choice==1){
-                numberCypher();
+                numberCipher();
             }
             else if (choice==2){
                 caesarCipher();;
@@ -44,9 +44,10 @@ public class Main {
         return choice;
 
     }
-    public static void numberCypher(){
+    public static void numberCipher(){
         int menuChoice;
         boolean keepGoing = true;
+        System.out.println("Welcome to number cipher");
         while(keepGoing == true){
             menuChoice = subMenu();
 
@@ -66,6 +67,7 @@ public class Main {
     public static void caesarCipher(){
         int menuChoice;
         boolean keepGoing = true;
+        System.out.println("Welcome to Caesar cipher");
         while(keepGoing == true){
             menuChoice = subMenu();
 
@@ -85,6 +87,7 @@ public class Main {
     public static void vigCipher(){
         int menuChoice;
         boolean keepGoing = true;
+        System.out.println("Welcome to Vigenère cipher");
         while(keepGoing == true){
             menuChoice = subMenu();
 
@@ -196,7 +199,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter encrypted message");
         String input = scanner.nextLine();
-        System.out.println("Enter the shift that the message was encrypted with");
+        System.out.println("Enter the shift that the message was encrypted with (1-29)");
         int shift = scanner.nextInt();
         input = caeNumToLetter(stringtoNumArray(input),shift,false);
         System.out.println(input);
@@ -206,7 +209,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter a text to encrypt");
         String input = scanner.nextLine();
-        System.out.println("Enter a shift");
+        System.out.println("Enter a shift (1-29)");
         int shift = scanner.nextInt();
         int numArray[] = new int[input.length()];
         numArray = stringtoNumArray(input);
