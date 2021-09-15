@@ -9,7 +9,7 @@ public class Main {
 
         mainMenu();
 
-        System.out.println("Thanks for using Mark Enigma program");
+        System.out.println("Thanks for using Marks Enigma program");
     }
 
     public static void mainMenu(){
@@ -24,7 +24,7 @@ public class Main {
             else if (choice==3){
                 vigCipher();
             }
-            else if (choice == 4){
+            else if (choice == 0){
                 break;
             }
             else {
@@ -39,7 +39,7 @@ public class Main {
         System.out.println("Press 1 for number cipher");
         System.out.println("Press 2 for Caesar cipher");
         System.out.println("Press 3 for Vigenère Cipher");
-        System.out.println("Press 4 to exit");
+        System.out.println("Press 0 to exit");
         int choice = scanner.nextInt();
         return choice;
 
@@ -104,7 +104,7 @@ public class Main {
 
 
     public static int subMenu(){
-        System.out.println("Do you want to encode or decode (d/e) or return to main menu (m)");
+        System.out.println("Do you want to encrypt or decrypt (d/e) or return to main menu (m)");
         boolean keepGoing = true;
         int menuChoice = 0;
         Scanner scanner = new Scanner(System.in);
@@ -133,7 +133,7 @@ public class Main {
         boolean vaildInput = false;
 
         while(vaildInput == false){
-            System.out.println("Do you want to decode or encode anything else (y/n)");
+            System.out.println("Do you want to encrypt or decrypt anything else (y/n)");
             String input = scanner.nextLine();
             if(input.equals("y")){
                 vaildInput = true;
@@ -175,7 +175,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter a text to encrypt");
         String text = scanner.nextLine();
-        System.out.println("Enter code pharse");
+        System.out.println("Enter code pharse used to encrypt message");
         String code = scanner.nextLine();
         int numCode[] = new int[code.length()];
         numCode = stringtoNumArray(code);
@@ -204,7 +204,7 @@ public class Main {
 
     public static void caeEncrypt(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter a text to encode");
+        System.out.println("Enter a text to encrypt");
         String input = scanner.nextLine();
         System.out.println("Enter a shift");
         int shift = scanner.nextInt();
@@ -224,7 +224,7 @@ public class Main {
 
     public static void numEncrypt(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter a text to endcode");
+        System.out.println("Enter a text to encrypt");
         String input = scanner.nextLine();
         int numArray[] = new int[input.length()];
         numArray = stringtoNumArray(input);
