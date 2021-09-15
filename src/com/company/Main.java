@@ -233,6 +233,7 @@ public class Main {
         System.out.println(arrayToString(numArray));
     }
 
+
     public static String caeNumToLetter(int[] array, int shift , boolean toEncode){
         if(toEncode == false){
             shift = -shift;
@@ -276,15 +277,6 @@ public class Main {
             }
         return text;
     }
-
-
-
-
-
-
-
-
-
 
 
 
