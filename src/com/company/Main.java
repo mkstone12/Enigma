@@ -160,17 +160,16 @@ public class Main {
         String text = scanner.nextLine();
         System.out.println("Enter code pharse");
         String code = scanner.nextLine();
-        int numCode[] = new int[code.length()];
+        int numCode[];
         numCode = stringtoNumArray(code);
-        int textArray[] = new int [text.length()];
+        int textArray[];
         textArray = stringtoNumArray(text);
         text = "";
-        for(int i = 0; i < textArray.length;i++){
+        for(int i = 0; i < textArray.length;){
             for(int j = 0; j <numCode.length && i < textArray.length;j++){
                 text = text + vigNumToLetter(textArray[i],numCode[j],false);
                 i++;
         }
-        i = i - 1;
         }
         System.out.println(text);
     }
@@ -180,17 +179,16 @@ public class Main {
         String text = scanner.nextLine();
         System.out.println("Enter code pharse used to encrypt message");
         String code = scanner.nextLine();
-        int numCode[] = new int[code.length()];
+        int numCode[];
         numCode = stringtoNumArray(code);
-        int textArray[] = new int [text.length()];
+        int textArray[];
         textArray = stringtoNumArray(text);
         text = "";
-        for(int i = 0; i < textArray.length;i++){
+        for(int i = 0; i < textArray.length;){
             for(int j = 0; j <numCode.length && i < textArray.length;j++){
                 text = text + vigNumToLetter(textArray[i],numCode[j],true);
                 i++;
             }
-            i = i - 1;
         }
         System.out.println(text);
     }
@@ -242,6 +240,7 @@ public class Main {
         String alfabet = " ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ";
         String text = "";
         int index = 0;
+
         for (int i = 0 ; i < array.length; i++){
             if (array[i]+shift < 30 && array[i]+shift >= 0){
             text = text + alfabet.substring(array[i]+shift,array[i]+1+shift);
